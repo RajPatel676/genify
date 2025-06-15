@@ -177,7 +177,11 @@ def generate_image():
         })
 
     except Exception as e:
-            print("❌ Error generating image:")
+             if "GPU quota" in str(e):
+                     return jsonify({
+                             'success': False,
+                             'error': '🚫 Gradio GPU quota exceeded. Please wait and try again in 24 hours.'
+                     }), 429
             traceback.print_exc()  # This will show full details in the log
             return jsonify({'success': False, 'error': str(e)}), 500
 
