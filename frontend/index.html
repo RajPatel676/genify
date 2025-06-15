@@ -103,6 +103,20 @@
                 } finally {
                     setIsGenerating(false);
                 }
+                if (data.success) {
+  setGeneratedImage({
+    url: data.image_url,
+    base64: data.image_base64,
+    filename: createFilename(prompt) + '.jpg',
+    prompt: prompt
+  });
+  console.log('Image generated successfully!');
+
+  // Show wait message
+  setTimeout(() => {
+    setError("⏳ Please wait at least 50 seconds before generating the next image.");
+  }, 1000);
+}
             };
 
             const downloadImage = async () => {
@@ -303,11 +317,7 @@
                                         {error}
                                     </div>
                                 )}
-                               {generatedImage && (
-  <h3 className="text-yellow-300 text-sm mt-2">
-    ⏳ Please wait at least 50 seconds before generating the next image.
-  </h3>
-)}
+                               {generatedImage && (<h3 className="text-yellow-300 text-sm mt-2">⏳ Please wait at least 50 seconds before generating the next image.</h3>)}
 
                             </div>
 
