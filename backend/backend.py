@@ -116,6 +116,7 @@ from flask_cors import CORS
 import base64
 import os
 from gradio_client import Client
+import traceback
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
@@ -176,8 +177,9 @@ def generate_image():
         })
 
     except Exception as e:
-        print(f"Error generating image: {str(e)}")
-        return jsonify({'success': False, 'error': str(e)}), 500
+            print("❌ Error generating image:")
+            traceback.print_exc()  # This will show full details in the log
+            return jsonify({'success': False, 'error': str(e)}), 500
 
 @app.route('/api/health', methods=['GET'])
 def health_check():
