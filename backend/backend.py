@@ -176,14 +176,17 @@ def generate_image():
             'filename': filename
         })
 
-    except Exception as e:
-             if "GPU quota" in str(e):
-                     return jsonify({
-                             'success': False,
-                             'error': '🚫 Gradio GPU quota exceeded. Please wait and try again in 24 hours.'
-                     }), 429
-            traceback.print_exc()  # This will show full details in the log
-            return jsonify({'success': False, 'error': str(e)}), 500
+except Exception as e:
+    if "GPU quota" in str(e):
+        return jsonify({
+            'success': False,
+            'error': '🚫 Gradio GPU quota exceeded. Please wait and try again in 24 hours.'
+        }), 429
+
+    print("❌ Error generating image:")
+    traceback.print_exc()
+    return jsonify({'success': False, 'error': str(e)}), 500
+
 
 @app.route('/api/health', methods=['GET'])
 def health_check():
