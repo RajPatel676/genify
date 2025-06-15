@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "https://ai-image-backend.onrender.com/api/$1"
+    }
+  ]
+}
